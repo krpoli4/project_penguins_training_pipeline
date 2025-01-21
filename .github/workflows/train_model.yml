@@ -8,7 +8,7 @@ on:
 
 jobs:
   train:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'
+          python-version: '3.10'
 
       - name: Install dependencies
         run: |
@@ -26,7 +26,15 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Debug Python Environment
+        run: |
+          source .venv/bin/activate
+          python --version
+          which python
+          pip list
+
       - name: Run training script
         run: |
           source .venv/bin/activate
           python training_pipeline.py
+
